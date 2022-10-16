@@ -22,7 +22,7 @@ for i,j in zip(keys,values):
                sns_topic_arn,
           ],
           MetricName='CPUUtilization',
-          Namespace='string',
+          Namespace='AWS/EC2',
           Statistic='Average',
           Dimensions=[
               {
@@ -30,12 +30,12 @@ for i,j in zip(keys,values):
                   'Value': i
               },
           ],
-          Period=10,
-          Unit='Percent',
+          Period=60,
+          Unit='second',
           EvaluationPeriods=1,
           DatapointsToAlarm=1,
           Threshold=j,
-          ComparisonOperator='GreaterThanOrEqualToThreshold',
+          ComparisonOperator='GreaterThanUpperThreshold',
           Tags=[
               {
                   'Key': 'Name',
@@ -43,4 +43,3 @@ for i,j in zip(keys,values):
               },
           ]
       )
-print(response)
