@@ -1,8 +1,8 @@
 import boto3
-sns_topic_arn = 'arn:aws:sns:ap-south-1:612490972332:cpu-utilization-sns'
-notification_email='sparsh.baurasi@virtuecloud.io'
+sns_topic_arn = 'Desired sns topic arn'
+notification_email='example@example.com'
 alarm= {
-    "i-0e778794334bf41db" : 20 ,
+    "Your Instance id" : "Threshold on which the alarm will trigger(Must be an integer value)" ,
 }
 keys = list(alarm.keys())
 values = list(alarm.values())
@@ -16,7 +16,7 @@ response2 = client_sns.subscribe(
 client_cw = boto3.client('cloudwatch')
 for i,j in zip(keys,values):
  response = client_cw.put_metric_alarm(
-          AlarmName='ec2-cpu-alarm',
+          AlarmName='ec2-cpu-alarmsadasd',
           ActionsEnabled=True,
           AlarmActions=[
                sns_topic_arn,
@@ -31,11 +31,10 @@ for i,j in zip(keys,values):
               },
           ],
           Period=60,
-          Unit='second',
           EvaluationPeriods=1,
           DatapointsToAlarm=1,
           Threshold=j,
-          ComparisonOperator='GreaterThanUpperThreshold',
+          ComparisonOperator='GreaterThanThreshold',
           Tags=[
               {
                   'Key': 'Name',
